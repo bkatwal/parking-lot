@@ -1,8 +1,10 @@
 package org.bkatwal.parkinglot.cache;
 
-public interface CacheService<K, V> {
+public interface CacheService {
 
-  void put(String cacheName, K cacheKey, V value);
+  <V> void put(String cacheName, String cacheKey, V value);
 
-  V getValue(String cacheName, K cacheKey);
+  <V> V getValue(String cacheName, String cacheKey);
+
+  void registerCache(String cacheName);
 }

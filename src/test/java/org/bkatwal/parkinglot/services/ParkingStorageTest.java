@@ -2,7 +2,7 @@ package org.bkatwal.parkinglot.services;
 
 import static org.bkatwal.parkinglot.utils.ServiceNameConstants.PARKING_STORAGE;
 
-import org.bkatwal.parkinglot.api.ParkingStorage;
+import org.bkatwal.parkinglot.dao.ParkingStorage;
 import org.bkatwal.parkinglot.core.ServiceLocator;
 import org.bkatwal.parkinglot.exceptions.ParkinglotException;
 import org.bkatwal.parkinglot.models.Car;

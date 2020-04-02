@@ -1,4 +1,4 @@
-package org.bkatwal.parkinglot.services;
+package org.bkatwal.parkinglot.dao;
 
 import static org.bkatwal.parkinglot.utils.ServiceNameConstants.PARKING_STORAGE;
 
@@ -7,8 +7,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import org.bkatwal.parkinglot.api.ParkingSpotFinder;
-import org.bkatwal.parkinglot.api.ParkingStorage;
 import org.bkatwal.parkinglot.exceptions.ParkinglotException;
 import org.bkatwal.parkinglot.models.ParkingSpot;
 import org.bkatwal.parkinglot.models.Vehicle;
@@ -65,6 +63,26 @@ public class ParkingStorageImpl implements ParkingStorage {
         throw new ParkinglotException("Sorry, parking lot is full");
       }
       int spot = parkingSpotFinder.getEmptySlot();
+      ParkingSpot parkingSpot = new ParkingSpot(spot, vehicle);
+      parkingSpots[spot - 1] = parkingSpot;
+      parkingSortedSet.add(parkingSpot);
+      spotsOccupiedCounter.incrementAndGet();
+      return parkingSpot;
+    } finally {
+      lock.writeLock().unlock();
+    }
+  }
+
+  @Override
+  public ParkingSpot addToSpot(int spot, Vehicle vehicle) {
+    lock.writeLock().lock();
+    try {
+      validateParkingLotCreated();
+
+      if (parkingSpots.length == spotsOccupiedCounter.get()) {
+        throw new ParkinglotException("Sorry, parking lot is full");
+      }
+
       ParkingSpot parkingSpot = new ParkingSpot(spot, vehicle);
       parkingSpots[spot - 1] = parkingSpot;
       parkingSortedSet.add(parkingSpot);

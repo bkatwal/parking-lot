@@ -1,4 +1,4 @@
-package org.bkatwal.parkinglot.api;
+package org.bkatwal.parkinglot.dao;
 
 import java.util.Iterator;
 import org.bkatwal.parkinglot.models.ParkingSpot;
@@ -9,6 +9,8 @@ public interface ParkingStorage {
   int createParkingSpace(int levelSpace);
 
   ParkingSpot addToSpot(Vehicle vehicle);
+
+  ParkingSpot addToSpot(int spot, Vehicle vehicle);
 
   ParkingSpot removeFromSpot(int spot);
 

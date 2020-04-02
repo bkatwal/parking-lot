@@ -1,9 +1,8 @@
-package org.bkatwal.parkinglot.services;
+package org.bkatwal.parkinglot.dao;
 
 import java.util.Queue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.stream.IntStream;
-import org.bkatwal.parkinglot.api.ParkingSpotFinder;
 
 public class ClosestEntrySpotFinder implements ParkingSpotFinder {
 

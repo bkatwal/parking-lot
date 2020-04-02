@@ -14,4 +14,8 @@ public final class ParkingLotUtils {
     }
     return (T) obj;
   }
+
+  public static String[] getCommandTokens(String command) {
+    return command.split("\\s+");
+  }
 }

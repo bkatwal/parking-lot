@@ -7,4 +7,8 @@ public final class ServiceNameConstants {
   }
 
   public static final String PARKING_STORAGE = "parkingStorage";
+
+  public static final String PARKING_SERVICE = "parkingService";
+
+  public static final String CACHE_SERVICE = "cacheService";
 }

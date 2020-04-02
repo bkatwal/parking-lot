@@ -1,4 +1,4 @@
-package org.bkatwal.parkinglot.api;
+package org.bkatwal.parkinglot.dao;
 
 public interface ParkingSpotFinder {
 

@@ -8,6 +8,8 @@ public interface ParkingService {
 
   ParkingSpot park(Vehicle vehicle);
 
+  ParkingSpot park(int spot, Vehicle vehicle);
+
   Vehicle leave(ParkingSpot parkingSpot);
 
   Collection<ParkingSpot> status();
