@@ -1,7 +1,7 @@
 package org.bkatwal.parkinglot.api;
 
 @FunctionalInterface
-public interface Command<U, V> {
+public interface CommandExecutor<U, V> {
 
   /**
    * Executes command and returns execution result

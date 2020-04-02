@@ -1,13 +1,15 @@
 package org.bkatwal.parkinglot.utils;
 
+import org.bkatwal.parkinglot.exceptions.ParkinglotException;
+
 public enum CommandEnum {
 
-  CAR_PARKING_LOT("create_parking_lot", 1),
+  CREATE_PARKING_LOT("create_parking_lot", 1),
   PARK("park", 2),
   LEAVE("leave", 1),
   REGISTRATION_NUMBERS_TO_COLOUR("registration_numbers_for_cars_with_colour", 1),
   SLOT_NUMBERS_FOR_COLOR("slot_numbers_for_cars_with_colour", 1),
-  SOLT_NUMBER_FOR_REG("slot_number_for_registration_number", 1);
+  SLOT_NUMBER_FOR_REG("slot_number_for_registration_number", 1);
 
   private final String command;
   private final int noOfParams;
@@ -19,6 +21,18 @@ public enum CommandEnum {
 
   public String getName() {
     return this.command;
+  }
+
+  public String getParserName() {
+    return this.command.concat("_parser");
+  }
+
+  public String getExecutorName() {
+    return this.command.concat("_executor");
+  }
+
+  public String getExhibitorName() {
+    return this.command.concat("_exhibitor");
   }
 
   public int numberOfParams() {
@@ -35,6 +49,7 @@ public enum CommandEnum {
         return commandEnum;
       }
     }
-    return null;
+
+    throw new ParkinglotException("Invalid command");
   }
 }

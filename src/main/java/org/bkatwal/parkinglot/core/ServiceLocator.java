@@ -9,10 +9,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.bkatwal.parkinglot.api.ParkingService;
 import org.bkatwal.parkinglot.cache.CacheService;
 import org.bkatwal.parkinglot.cache.CacheServiceImpl;
+import org.bkatwal.parkinglot.commands.CreateParkingCommandExecutor;
+import org.bkatwal.parkinglot.commands.FindSlotByColorExecutor;
+import org.bkatwal.parkinglot.commands.FindSlotByRegistrationExecutor;
+import org.bkatwal.parkinglot.commands.FindVehicleByColorExecutor;
+import org.bkatwal.parkinglot.commands.LeaveCommandExecutor;
+import org.bkatwal.parkinglot.commands.ParkCommandExecutor;
 import org.bkatwal.parkinglot.datalayer.ClosestEntrySpotFinder;
 import org.bkatwal.parkinglot.datalayer.ParkingStorage;
 import org.bkatwal.parkinglot.datalayer.ParkingStorageImpl;
-import org.bkatwal.parkinglot.services.ParkCommand;
 import org.bkatwal.parkinglot.services.ParkingServiceImpl;
 import org.bkatwal.parkinglot.utils.CommandEnum;
 
@@ -44,7 +49,19 @@ public class ServiceLocator implements Services {
     ParkingService parkingService = new ParkingServiceImpl(cacheService, parkingStorage);
     serviceBeans.put(PARKING_SERVICE, parkingService);
 
-    serviceBeans.put(CommandEnum.PARK.getName(), new ParkCommand(parkingService));
+    serviceBeans.put(CommandEnum.PARK.getExecutorName(), new ParkCommandExecutor(parkingService));
+    serviceBeans
+        .put(CommandEnum.CREATE_PARKING_LOT.getExecutorName(),
+            new CreateParkingCommandExecutor(parkingService));
+    serviceBeans.put(CommandEnum.LEAVE.getExecutorName(), new LeaveCommandExecutor(parkingService));
+    serviceBeans.put(CommandEnum.REGISTRATION_NUMBERS_TO_COLOUR.getExecutorName(),
+        new FindVehicleByColorExecutor(parkingService));
+    serviceBeans
+        .put(CommandEnum.SLOT_NUMBERS_FOR_COLOR.getExecutorName(),
+            new FindSlotByColorExecutor(parkingService));
+    serviceBeans
+        .put(CommandEnum.SLOT_NUMBER_FOR_REG.getExecutorName(),
+            new FindSlotByRegistrationExecutor(parkingService));
   }
 
   public static synchronized Services getInstance() {

@@ -6,8 +6,8 @@ public interface CommandParser<T> {
   /**
    * Parse and convert the command in service understandable format
    *
-   * @param command command string
+   * @param params command params
    * @return parsed param to command service
    */
-  T parse(String command);
+  T parse(String[] params);
 }
