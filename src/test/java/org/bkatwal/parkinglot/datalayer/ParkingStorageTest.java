@@ -1,8 +1,7 @@
-package org.bkatwal.parkinglot.services;
+package org.bkatwal.parkinglot.datalayer;
 
 import static org.bkatwal.parkinglot.utils.ServiceNameConstants.PARKING_STORAGE;
 
-import org.bkatwal.parkinglot.dao.ParkingStorage;
 import org.bkatwal.parkinglot.core.ServiceLocator;
 import org.bkatwal.parkinglot.exceptions.ParkinglotException;
 import org.bkatwal.parkinglot.models.Car;
@@ -29,8 +28,8 @@ public class ParkingStorageTest {
 
   @Test
   public void assertParkingSpotCreation() {
-    int totalSpace = parkingStorage.createParkingSpace(10);
-    Assert.assertEquals(10, totalSpace);
+    Integer totalSpace = parkingStorage.createParkingSpace(10);
+    Assert.assertEquals(10, totalSpace.intValue());
   }
 
   @Test(expected = ParkinglotException.class)
@@ -45,7 +44,7 @@ public class ParkingStorageTest {
     Vehicle car = new Car("REG01", "RED");
     ParkingSpot parkingSpot1 = parkingStorage.addToSpot(car);
     Assert.assertNotNull(parkingSpot1);
-    Assert.assertEquals(1, parkingSpot1.getSpotNumber());
+    Assert.assertEquals(1, parkingSpot1.getSpotNumber().intValue());
     Assert.assertEquals("REG01", parkingSpot1.getVehicle().getRegistrationNumber());
     Assert.assertEquals("RED", parkingSpot1.getVehicle().getColor());
 
@@ -54,13 +53,13 @@ public class ParkingStorageTest {
 
     Vehicle car3 = new Car("REG03", "BLUE");
     ParkingSpot parkingSpot3 = parkingStorage.addToSpot(car3);
-    Assert.assertEquals(3, parkingSpot3.getSpotNumber());
+    Assert.assertEquals(3, parkingSpot3.getSpotNumber().intValue());
 
     parkingStorage.removeFromSpot(2);
 
     Vehicle car4 = new Car("REG04", "WHITE");
     ParkingSpot parkingSpot4 = parkingStorage.addToSpot(car4);
-    Assert.assertEquals(2, parkingSpot4.getSpotNumber());
+    Assert.assertEquals(2, parkingSpot4.getSpotNumber().intValue());
   }
 
   @Test(expected = ParkinglotException.class)
@@ -110,7 +109,11 @@ public class ParkingStorageTest {
     parkingStorage.addToSpot(car2);
 
     Assert
-        .assertEquals("REG02", parkingStorage.status().next().getVehicle().getRegistrationNumber());
+        .assertEquals("REG02",
+            parkingStorage.status().iterator().next().getVehicle().getRegistrationNumber());
+    Assert
+        .assertEquals("REG02",
+            parkingStorage.status().iterator().next().getVehicle().getRegistrationNumber());
 
   }
 }

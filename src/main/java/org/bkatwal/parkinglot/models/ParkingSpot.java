@@ -7,29 +7,21 @@ import java.util.Objects;
  */
 public class ParkingSpot implements Comparable<ParkingSpot> {
 
-  private Integer spotNumber;
+  private final Integer spotNumber;
 
-  private Vehicle vehicle;
+  private final Vehicle vehicle;
 
-  public ParkingSpot(int spotNumber, Vehicle vehicle) {
+  public ParkingSpot(Integer spotNumber, Vehicle vehicle) {
     this.vehicle = vehicle;
     this.spotNumber = spotNumber;
   }
 
-  public int getSpotNumber() {
+  public Integer getSpotNumber() {
     return spotNumber;
-  }
-
-  public void setSpotNumber(int spotNumber) {
-    this.spotNumber = spotNumber;
   }
 
   public Vehicle getVehicle() {
     return vehicle;
-  }
-
-  public void setVehicle(Vehicle vehicle) {
-    this.vehicle = vehicle;
   }
 
   @Override

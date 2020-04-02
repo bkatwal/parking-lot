@@ -24,7 +24,30 @@ public class CacheServiceImpl implements CacheService {
   }
 
   @Override
+  public void remove(String cacheName, String cacheKey) {
+    Map<String, Object> cacheMap = cache.get(cacheName);
+    if (cacheMap == null) {
+      return;
+    }
+    cacheMap.remove(cacheKey);
+  }
+
+  @Override
   public void registerCache(final String cacheName) {
     cache.put(cacheName, new ConcurrentHashMap<>());
+  }
+
+  @Override
+  public void invalidateCache(String cacheName) {
+    Map<String, Object> cacheMap = cache.get(cacheName);
+    if (cacheMap == null) {
+      return;
+    }
+    cache.get(cacheName).clear();
+  }
+
+  @Override
+  public void invalidateAllCache() {
+    cache.clear();
   }
 }

@@ -1,5 +1,6 @@
 package org.bkatwal.parkinglot.api;
 
+@FunctionalInterface
 public interface Command<U, V> {
 
   /**
@@ -9,6 +10,4 @@ public interface Command<U, V> {
    * @return execution result
    */
   V execute(final U param);
-
-  String serviceName();
 }

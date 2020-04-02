@@ -1,5 +1,6 @@
 package org.bkatwal.parkinglot.api;
 
+@FunctionalInterface
 public interface CommandParser<T> {
 
   /**

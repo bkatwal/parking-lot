@@ -1,8 +1,6 @@
-package org.bkatwal.parkinglot.dao;
+package org.bkatwal.parkinglot.datalayer;
 
-import static org.bkatwal.parkinglot.utils.ServiceNameConstants.PARKING_STORAGE;
-
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,7 +32,7 @@ public class ParkingStorageImpl implements ParkingStorage {
   }
 
   @Override
-  public int createParkingSpace(int maxSpace) {
+  public Integer createParkingSpace(Integer maxSpace) {
 
     lock.writeLock().lock();
     try {
@@ -46,6 +44,7 @@ public class ParkingStorageImpl implements ParkingStorage {
       parkingSpots = new ParkingSpot[maxSpace];
       parkingSpotFinder.createSlotQueues(maxSpace);
       spotsOccupiedCounter = new AtomicInteger(0);
+      parkingSortedSet.clear();
       return parkingSpots.length;
     } finally {
       lock.writeLock().unlock();
@@ -62,7 +61,7 @@ public class ParkingStorageImpl implements ParkingStorage {
       if (parkingSpots.length == spotsOccupiedCounter.get()) {
         throw new ParkinglotException("Sorry, parking lot is full");
       }
-      int spot = parkingSpotFinder.getEmptySlot();
+      Integer spot = parkingSpotFinder.getEmptySlot();
       ParkingSpot parkingSpot = new ParkingSpot(spot, vehicle);
       parkingSpots[spot - 1] = parkingSpot;
       parkingSortedSet.add(parkingSpot);
@@ -74,7 +73,7 @@ public class ParkingStorageImpl implements ParkingStorage {
   }
 
   @Override
-  public ParkingSpot addToSpot(int spot, Vehicle vehicle) {
+  public ParkingSpot addToSpot(Integer spot, Vehicle vehicle) {
     lock.writeLock().lock();
     try {
       validateParkingLotCreated();
@@ -94,7 +93,7 @@ public class ParkingStorageImpl implements ParkingStorage {
   }
 
   @Override
-  public ParkingSpot removeFromSpot(int spot) {
+  public ParkingSpot removeFromSpot(Integer spot) {
     lock.writeLock().lock();
     try {
       validateParkingLotCreated();
@@ -113,18 +112,18 @@ public class ParkingStorageImpl implements ParkingStorage {
   }
 
   @Override
-  public Iterator<ParkingSpot> status() {
-    validateParkingLotCreated();
+  public Collection<ParkingSpot> status() {
     lock.readLock().lock();
     try {
-      return parkingSortedSet.iterator();
+      validateParkingLotCreated();
+      return new TreeSet<>(parkingSortedSet);
     } finally {
       lock.readLock().unlock();
     }
   }
 
   @Override
-  public ParkingSpot getFromSpot(int spot) {
+  public ParkingSpot getFromSpot(Integer spot) {
     lock.readLock().lock();
     try {
       return parkingSpots[spot - 1];
@@ -148,14 +147,6 @@ public class ParkingStorageImpl implements ParkingStorage {
     }
   }
 
-  @Override
-  public String serviceName() {
-    return PARKING_STORAGE;
-  }
-
-  /**
-   * checks if parking lot is created or not
-   */
   private void validateParkingLotCreated() {
     if (parkingSpots == null) {
       throw new ParkinglotException(

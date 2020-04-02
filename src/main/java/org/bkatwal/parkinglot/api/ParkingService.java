@@ -6,21 +6,23 @@ import org.bkatwal.parkinglot.models.Vehicle;
 
 public interface ParkingService {
 
+  Integer createParkingSpace(Integer maxSpace);
+
   ParkingSpot park(Vehicle vehicle);
 
-  ParkingSpot park(int spot, Vehicle vehicle);
+  ParkingSpot park(Integer spot, Vehicle vehicle);
 
-  Vehicle leave(ParkingSpot parkingSpot);
+  Integer leave(Integer spot);
+
+  ParkingSpot getFromSpot(Integer spot);
 
   Collection<ParkingSpot> status();
 
-  Vehicle findVehicleByColor(String color);
+  Collection<String> findVehiclesByColor(String color);
 
-  /**
-   * Convenience method. this gives the service name of the bean, which will later be used to fetch
-   * bean from service locator. Ideally this needs to be done using aspect
-   *
-   * @return service name
-   */
-  String serviceName();
+  Collection<Integer> findSlotNumbersByColor(String color);
+
+  Integer findSlotNumberByRegistrationNumber(String registrationNumber);
+
+  void shutdown();
 }
