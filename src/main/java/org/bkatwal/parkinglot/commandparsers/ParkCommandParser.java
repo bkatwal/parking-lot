@@ -1,4 +1,4 @@
-package org.bkatwal.parkinglot.parsers;
+package org.bkatwal.parkinglot.commandparsers;
 
 import org.bkatwal.parkinglot.api.CommandParser;
 import org.bkatwal.parkinglot.exceptions.ParkinglotException;

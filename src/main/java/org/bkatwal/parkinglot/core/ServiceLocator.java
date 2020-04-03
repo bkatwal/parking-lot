@@ -9,12 +9,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.bkatwal.parkinglot.api.ParkingService;
 import org.bkatwal.parkinglot.cache.CacheService;
 import org.bkatwal.parkinglot.cache.CacheServiceImpl;
-import org.bkatwal.parkinglot.commands.CreateParkingCommandExecutor;
-import org.bkatwal.parkinglot.commands.FindSlotByColorExecutor;
-import org.bkatwal.parkinglot.commands.FindSlotByRegistrationExecutor;
-import org.bkatwal.parkinglot.commands.FindVehicleByColorExecutor;
-import org.bkatwal.parkinglot.commands.LeaveCommandExecutor;
-import org.bkatwal.parkinglot.commands.ParkCommandExecutor;
+import org.bkatwal.parkinglot.commandexecutors.CreateParkingCommandExecutor;
+import org.bkatwal.parkinglot.commandexecutors.SlotByColorCommandExecutor;
+import org.bkatwal.parkinglot.commandexecutors.SlotByRegCommandExecutor;
+import org.bkatwal.parkinglot.commandexecutors.VehicleByColorExecutor;
+import org.bkatwal.parkinglot.commandexecutors.LeaveCommandExecutor;
+import org.bkatwal.parkinglot.commandexecutors.ParkCommandExecutor;
 import org.bkatwal.parkinglot.datalayer.ClosestEntrySpotFinder;
 import org.bkatwal.parkinglot.datalayer.ParkingStorage;
 import org.bkatwal.parkinglot.datalayer.ParkingStorageImpl;
@@ -55,13 +55,13 @@ public class ServiceLocator implements Services {
             new CreateParkingCommandExecutor(parkingService));
     serviceBeans.put(CommandEnum.LEAVE.getExecutorName(), new LeaveCommandExecutor(parkingService));
     serviceBeans.put(CommandEnum.REGISTRATION_NUMBERS_TO_COLOUR.getExecutorName(),
-        new FindVehicleByColorExecutor(parkingService));
+        new VehicleByColorExecutor(parkingService));
     serviceBeans
         .put(CommandEnum.SLOT_NUMBERS_FOR_COLOR.getExecutorName(),
-            new FindSlotByColorExecutor(parkingService));
+            new SlotByColorCommandExecutor(parkingService));
     serviceBeans
         .put(CommandEnum.SLOT_NUMBER_FOR_REG.getExecutorName(),
-            new FindSlotByRegistrationExecutor(parkingService));
+            new SlotByRegCommandExecutor(parkingService));
   }
 
   public static synchronized Services getInstance() {

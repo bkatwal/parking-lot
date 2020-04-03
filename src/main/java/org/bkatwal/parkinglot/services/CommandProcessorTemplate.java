@@ -15,30 +15,31 @@ public class CommandProcessorTemplate implements ProcessorTemplate {
   @Override
   @SuppressWarnings({"unchecked", "rawtypes"})
   public void process(final String command) {
-    if (command == null) {
-      throw new ParkinglotException("Invalid command");
+    try {
+      if (command == null) {
+        throw new ParkinglotException("Invalid command");
+      }
+
+      String[] commandArr = ParkingLotUtils.getCommandTokens(command);
+      CommandEnum commandEnum = CommandEnum.getCommandByName(commandArr[0]);
+
+      CommandParser commandParser = ServiceLocator.getInstance()
+          .getService(commandEnum.getParserName(), CommandParser.class);
+
+      CommandExecutor commandExecutor = ServiceLocator.getInstance()
+          .getService(commandEnum.getExecutorName(), CommandExecutor.class);
+
+      CommandExhibitor commandExhibitor = ServiceLocator.getInstance()
+          .getService(commandEnum.getExhibitorName(), CommandExhibitor.class);
+
+      Object parsedParam = commandParser
+          .parse(Arrays.copyOfRange(commandArr, 1, commandArr.length));
+      Object commandOutput = commandExecutor.execute(parsedParam);
+      String output = commandExhibitor.exhibit(commandOutput);
+
+      System.out.println(output);
+    } catch (ParkinglotException e) {
+      System.out.println(e.getMessage());
     }
-
-    String[] commandArr = ParkingLotUtils.getCommandTokens(command);
-    CommandEnum commandEnum = CommandEnum.getCommandByName(commandArr[0]);
-
-    CommandParser commandParser = ServiceLocator.getInstance()
-        .getService(commandEnum.getParserName(), CommandParser.class);
-
-    CommandExecutor commandExecutor = ServiceLocator.getInstance()
-        .getService(commandEnum.getExecutorName(), CommandExecutor.class);
-
-    CommandExhibitor commandExhibitor = ServiceLocator.getInstance()
-        .getService(commandEnum.getExhibitorName(), CommandExhibitor.class);
-    Object parsedParam;
-    if (commandArr.length == 1) {
-      parsedParam = commandParser.parse(null);
-    } else {
-      parsedParam = commandParser.parse(Arrays.copyOfRange(commandArr, 1, commandArr.length));
-    }
-    Object commandOutput = commandExecutor.execute(parsedParam);
-    String output = commandExhibitor.exhibit(commandOutput);
-
-    System.out.println(output);
   }
 }

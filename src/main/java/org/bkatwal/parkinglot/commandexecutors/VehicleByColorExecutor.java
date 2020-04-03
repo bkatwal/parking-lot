@@ -1,14 +1,14 @@
-package org.bkatwal.parkinglot.commands;
+package org.bkatwal.parkinglot.commandexecutors;
 
 import java.util.Collection;
 import org.bkatwal.parkinglot.api.CommandExecutor;
 import org.bkatwal.parkinglot.api.ParkingService;
 
-public class FindVehicleByColorExecutor implements CommandExecutor<String, Collection<String>> {
+public class VehicleByColorExecutor implements CommandExecutor<String, Collection<String>> {
 
   private ParkingService parkingService;
 
-  public FindVehicleByColorExecutor(ParkingService parkingService) {
+  public VehicleByColorExecutor(ParkingService parkingService) {
     this.parkingService = parkingService;
   }
 

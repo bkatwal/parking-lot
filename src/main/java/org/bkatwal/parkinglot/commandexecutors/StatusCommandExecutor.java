@@ -1,4 +1,4 @@
-package org.bkatwal.parkinglot.commands;
+package org.bkatwal.parkinglot.commandexecutors;
 
 import java.util.Collection;
 import org.bkatwal.parkinglot.api.CommandExecutor;
