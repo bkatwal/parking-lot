@@ -1,6 +1,7 @@
 package org.bkatwal.parkinglot.api;
 
+@FunctionalInterface
 public interface ProcessorTemplate {
 
-  void process(String command);
+  String process(String command);
 }

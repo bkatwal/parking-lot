@@ -14,7 +14,7 @@ public class CommandProcessorTemplate implements ProcessorTemplate {
 
   @Override
   @SuppressWarnings({"unchecked", "rawtypes"})
-  public void process(final String command) {
+  public String process(final String command) {
     try {
       if (command == null) {
         throw new ParkinglotException("Invalid command");
@@ -35,11 +35,9 @@ public class CommandProcessorTemplate implements ProcessorTemplate {
       Object parsedParam = commandParser
           .parse(Arrays.copyOfRange(commandArr, 1, commandArr.length));
       Object commandOutput = commandExecutor.execute(parsedParam);
-      String output = commandExhibitor.exhibit(commandOutput);
-
-      System.out.println(output);
+      return commandExhibitor.exhibit(commandOutput);
     } catch (ParkinglotException e) {
-      System.out.println(e.getMessage());
+      return e.getMessage();
     }
   }
 }

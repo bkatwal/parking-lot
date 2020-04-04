@@ -12,11 +12,10 @@ public class StatusCommandExhibitor implements CommandExhibitor<Collection<Parki
     String header = "Slot No.\t\tRegistration No.\t\tColour";
     sb.append(header);
     for (ParkingSpot parkingSpot : parkingSpots) {
-      String spotNumber = String.valueOf(parkingSpot.getSpotNumber());
       sb.append("\n");
       (
-          sb.append(parkingSpot.getSpotNumber()).append("\t\t\t\t\t\t"))
-          .append(parkingSpot.getVehicle().getRegistrationNumber()).append("\t\t\t\t")
+          sb.append(parkingSpot.getSpotNumber()).append("\t\t\t"))
+          .append(parkingSpot.getVehicle().getRegistrationNumber()).append("\t\t\t")
           .append(parkingSpot.getVehicle().getColor());
     }
     return sb.toString();

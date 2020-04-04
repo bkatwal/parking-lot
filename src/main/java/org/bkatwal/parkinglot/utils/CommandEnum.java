@@ -9,7 +9,8 @@ public enum CommandEnum {
   LEAVE("leave", 1),
   REGISTRATION_NUMBERS_TO_COLOUR("registration_numbers_for_cars_with_colour", 1),
   SLOT_NUMBERS_FOR_COLOR("slot_numbers_for_cars_with_colour", 1),
-  SLOT_NUMBER_FOR_REG("slot_number_for_registration_number", 1);
+  SLOT_NUMBER_FOR_REG("slot_number_for_registration_number", 1),
+  STATUS("status", 0);
 
   private final String command;
   private final int noOfParams;
