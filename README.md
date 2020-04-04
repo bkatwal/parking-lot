@@ -38,14 +38,14 @@ commands from that file
 Junit - 4.12
 
 ## Install and Run
-1. #####Add executables to PATH variable
+1. ##### Add executables to PATH variable
 - `export PATH=$PATH:/home/ubuntu1/parking-lot/bin`
 2. ##### Make files executable:
 - Run `chmod a+rwx` on `parking-lot/bin/setup` and `parking-lot/bin/setup`
-3. #####Setup the project
+3. ##### Setup the project
 - Go to project folder (parking-lot)
 - Run `bin/setup`
-4. #####Run Program
+4. ##### Run Program
 - Go to project folder (parking-lot)
 - For interactive mode: `bin/parking-lot`
 - For file mode: `bin/parking-lot <file>`
