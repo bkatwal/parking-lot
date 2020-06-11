@@ -1,6 +1,7 @@
 # Parking Lot
 This project demonstrates the sample parking lot application that automates ticket booking in a single floor parking lot.
-This project uses Template, Command, Strategy and Factory design pattern.
+
+#### This project uses Template, Command, Strategy and Factory design pattern.
 
 ## Problem Statement
 
